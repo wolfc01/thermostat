@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<title>Thermostat</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<button id = "up" type="button">+</button> 
+<button id = "down" type="button">-</button> 
+
+<div id="setpoint">
+  <p>0.0</p>
+</div>
+
+<div id="actualTemperature">
+  <p>0.0</p>
+</div>
+
+<script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script>
+
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+  $("#up").click(function(){
+    $.post("adjust", {"amount": 0.1});
+  });
+  $("#down").click(function(){
+    $.post("adjust", {"amount": -0.1});
+  });
+
+  var containerSetpoint = document.getElementById("setpoint");
+  var containerActual = document.getElementById("actualTemperature");
+  var eventSource = new EventSource("/stream")
+  eventSource.onmessage = function(e){
+    console.log(e)
+    if (e.lastEventId == "setpoint")
+    {
+      containerSetpoint.innerHTML = e.data;
+    }
+    if (e.lastEventId == "temperature")
+    {
+      containerActual.innerHTML = e.data;
+    }
+  }
+  console.log($SCRIPT_ROOT);
+  console.log("test");
+</script>
+</body>
+</html>
