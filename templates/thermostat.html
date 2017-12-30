@@ -6,17 +6,17 @@
 </head>
 
 <body>
-
+<header>
 <button id = "up" type="button">+</button> 
-<button id = "down" type="button">-</button> 
+</header>
 
-<div id="setpoint">
+<h1 id="actualTemperature">
   <p>0.0</p>
-</div>
-
-<div id="actualTemperature">
+</h1>
+<h2 id="setpoint">
   <p>0.0</p>
-</div>
+</h2>
+<button id = "down" type="button">-</button>
 
 <script type=text/javascript src="{{ url_for('static', filename='jquery.js') }}"></script>
 <script>
