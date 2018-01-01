@@ -96,6 +96,8 @@ try:
     if command == globals.COMMAND_NEWACTUAL:
       actual = float(value)
     ctrl = pid.update(actual)
+    if ctrl < 0.0:
+      ctrl = 0.0
     globals.writefifo(globals.FIFO_CTRL, globals.COMMAND_NEWCONTROLVALUE, str(ctrl))
     time.sleep(1)
 except KeyboardInterrupt:

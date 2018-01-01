@@ -13,7 +13,6 @@ writefifos = {}
 readfifos = {}
 
 def writefifo(name, command, value):
-  print("write %s:%s:%s" %(name, command, value)) 
   if not name in writefifos:
     fullPath = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
     if not os.path.exists(fullPath):
@@ -21,7 +20,6 @@ def writefifo(name, command, value):
     writefifos[name] = open(fullPath, "wb")
   writefifos[name].write("%s:%s\n" %(command, value))
   writefifos[name].flush() 
-  print("written:%s:%s" %(command, value)) 
 
 def readfifo(name):
   if not name in readfifos:
@@ -36,7 +34,6 @@ def readfifo(name):
   if data:
     while not data.endswith("\n"):
       data += os.read(readfifos[name], 1)
-    print("read from :%s data %s" %(name, data.strip()))
     return data.strip()
   else:
     return ":"

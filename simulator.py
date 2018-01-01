@@ -15,7 +15,4 @@ while True:
     temp = 0.0
   globals.writefifo(globals.FIFO_ACTUAL, globals.COMMAND_NEWACTUAL, str(temp))
   globals.writefifo(globals.FIFO_ACTUALWEBSERVER, globals.COMMAND_NEWACTUAL, str(temp))
-  print "simulator: temp =", temp
-  print "simulator: energy input =", energy
-  
   time.sleep(1)
